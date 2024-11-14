@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
+class Empleado extends Authenticatable {
+    
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -18,9 +17,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nombre',
+        'apellido',
+        'correo',
+        'clave',
+        'avatar',
+        'estado',
+        'rol'
     ];
 
     /**
@@ -29,8 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'clave',
     ];
 
     /**
@@ -38,8 +40,17 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    //     'password' => 'hashed',
+    // ];
+
+    public function ventas() { 
+        // Uno a muchos - has many en el modelo que NO tieene la llave foránea
+        return $this->hasMany(Venta::class);
+    }
+
+    public function getAuthPassword() {
+        return $this->clave;
+    }
 }
