@@ -1,71 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">
+  <img src="./public/images/la-flamita-web.svg" alt="la-flamita-web" width="200">
+  <br>
+  La Flamita Cliente
+  <br>
+  <br>
+</h1>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="https://laravel.com/"><img src="https://img.shields.io/badge/Built_using-Laravel-red.svg?logo=laravel" alt="laravel"></a>
+  <a href="https://laravel.com/docs/10.x"><img src="https://img.shields.io/badge/Laravel-10.x-red.svg?logo=laravel" alt="laravel-version"></a>
+  <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Made_with-Tailwind-blue.svg?logo=tailwindcss" alt="tailwindcss"></a>
+  <a href="https://flowbite.com/"><img src="https://img.shields.io/badge/Using-Flowbite-blue.svg" alt="flowbite"></a>
 </p>
 
-## About Laravel
+> [!NOTE]
+> Este es un `submodule` que forma parte del proyecto [`la-flamita`](https://github.com/InterdataUTJ/la-flamita/).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+> [!IMPORTANT]
+> Este proyecto solo representa el área del cliente. Puedes consultar el área administrativa desde el repositorio [`la-flamita-admin`](https://github.com/InterdataUTJ/la-flamita-admin/).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Desarrollo Web área cliente de [`Laravel`](https://laravel.com/docs/10.x) para taquería la flamita. La solución se enfoca en desarrollar toda la infraestructura web (vistas y APIs) para la logica de negocios de `la-flamita` enfocada a los clientes (el área administrativa se maneja en el proyecto [`la-flamita-admin`](https://github.com/InterdataUTJ/la-flamita-admin/)).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Documentación 📕
 
-## Learning Laravel
+### Como levantar el entono de desarrollo
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Primero debes de asegurarte de contar con los requisitos minimos:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+  - [`PHP`](https://www.php.net/releases/8.1/es.php) mínimo versión 8.1
+  - [`Composer`](https://getcomposer.org/), recomendamos la ultima versión, 2.8.2.
+  - [`MySQL`](https://www.mysql.com/) (_recomendamos cumplir con esta dependencia y PHP mediante [`XAMPP`](https://www.apachefriends.org/es/index.html), [`WAMP`](https://www.wampserver.com/en/) o algun software similar_).
+  - [`NodeJS`](https://nodejs.org/en/) minimo versión 18 LTS (_con su respectiva instalación de [`npm`](https://www.npmjs.com/), el cual se incluye por defecto con node_).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Clonar el repositorio (_asegurate de tener acceso al repositorio_).
 
-## Laravel Sponsors
+```bash
+git clone https://github.com/InterdataUTJ/la-flamita-cliente.git
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. Navegar al directorio del repositorio
 
-### Premium Partners
+```bash
+cd la-flamita-cliente/
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+4. Configurar las variables de entorno. 
 
-## Contributing
+_Escencialmente las unicas variables necesarias son las relacionadas al proceso de OAuth de Google y Paypal. El proyecto puede arrancar sin ellas pero no seras capaz de usar el login mediante Google ni la interfaz de Pagos._
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+_Ya deberia de estar bien configurado, pero asegurate de que las variables relacionadas a la base de datos sean correctas._
 
 
-# Cuenta Paypal Sandbox
-sb-cp2aq33616742@personal.example.com
-mgx4W#2p
+5. Instalar dependencias.
+
+```bash
+# Dependencias relacionadas a laravel y PHP
+composer install
+
+# Dependencias relacionadas a nodejs (tailwind, flowbite y fontawesome).
+npm install
+```
+
+6. Arrancar la base de datos.
+
+_Este proceso dependera de la instalación de BD a elegir, es completamente independiente del proyecto. El unico requisito adicional es crear la base de datos con el mismo nombre de las variables de entorno (No es necesario crear tablas manualmente)._
+
+7. Ejecutar configuración de laravel mediante `artisan`.
+
+```bash
+# Crear los enlaces simbolicos para hacer publico parte del storage
+php artisan link:storage
+```
+
+_**Nota:** Las migraciones y seeders se ejecutan desde el proyecto administrativo, por lo que recomendamos seguir la guía para configurar ambos proyectos y tener un entorno de desarrollo completo._
+
+8. Arrancar los servidors
+
+_Estos comandos deben de ejecutarse en terminales diferentes pues bloquean el acceso a esta._
+
+```bash
+# El proyecto depende del servidor vite para desarrollo
+npm run dev
+
+# La parte de ---host=0.0.0.0 es opcional, pero permite el uso de las API desde otros dispositivos en la LAN
+php artisan serve --port=8001 --host=0.0.0.0
+```
+
+> [!NOTE]
+> A pesar de que despues de levantar el servidor php la url puede decir http://0.0.0.0:8001, la web es accesible desde localhost o 127.0.0.1.
+
+
+
+### Modulos del sistema 🧩
+
+- Productos 🌮
+- Perfil 🙂
+- Ventas 💰
+- Carrito 🛒
+
+### Roles de acceso 👑
+
+1. **Cliente** (_Solo ver peril y hacer compras_)
