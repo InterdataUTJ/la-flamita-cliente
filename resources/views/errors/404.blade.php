@@ -2,6 +2,10 @@
 
 @section("titulo", "Error 404")
 
+@section("navbar")
+  <x-navbar.empty />
+@endsection 
+
 @section("contenido")
 <div class="mt-6 select-none">
   <p class="font-extrabold text-9xl text-center text-primary-500 mb-3">404</p>

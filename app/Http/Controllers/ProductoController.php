@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Carrito\Carrito;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
@@ -53,7 +54,9 @@ class ProductoController extends Controller {
           $productosFiltrados = $this->bubbleSort($productosFiltrados, $request->o);
         }
 
-        return view('menu')->with('productos', $productosFiltrados)->with('categorias', $categorias);
+        $carritoCantidad = Carrito::cantidad();
+
+        return view('menu')->with('productos', $productosFiltrados)->with('categorias', $categorias)->with('carritoCantidad', $carritoCantidad);
     }
 
     private function comparar($a, $b, $metodo) {
@@ -85,5 +88,11 @@ class ProductoController extends Controller {
           }
       }
       return $productos;
+    }
+
+
+    public function detalle($id) {
+      $producto = Producto::where("estado", true)->find($id);
+      return view('producto.detalle')->with('producto', $producto);
     }
 }

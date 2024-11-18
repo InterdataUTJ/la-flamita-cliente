@@ -1,11 +1,10 @@
-@props(['url', 'label' => 'Item'])
+@props(['route', 'label' => 'Item'])
 
 @php
-  $activo = str_starts_with("/".Request::path(), $url);
-  if ($url == "/") $activo = Request::path() == $url;
+  $activo = Request::routeIs($route);
 @endphp
 
-<a href="{{ $url }}" 
+<a href="{{ route($route) }}" 
   @if ($activo)
     class="block py-2 px-3 text-white bg-primary-600 rounded md:bg-transparent md:text-primary-700 md:p-0"
     aria-current="page"

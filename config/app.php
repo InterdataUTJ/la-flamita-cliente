@@ -181,8 +181,8 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+    'aliases' => Facade::defaultAliases()->merge([     
+        'Carrito' => App\Carrito\CarritoFacade::class,
     ])->toArray(),
 
 ];

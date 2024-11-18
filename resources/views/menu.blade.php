@@ -1,17 +1,10 @@
 @extends('plantillas.layout')
 
-@section("titulo", "La Flamita")
-
-@section("contenido.arriba")
-{{-- Banner --}}
-<div class="flex flex-col justify-center items-center w-full select-none">
-  <h3 class="text-white text-5xl font-extrabold bg-primary-500 w-full pt-10 pb-20 text-center">La Flamita</h3>
-  <img src="/images/waves.svg" class="w-full select-none">
-</div>
-@endsection
+@section("titulo", "Menú")
 
 @section("contenido")
 <h2 class="text-center font-extrabold text-3xl mb-2">Menú</h2>
+
 <section class="antialiased">
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <!-- Heading & Filters -->
@@ -27,6 +20,12 @@
           Ordenar
           <i class="fa-solid fa-chevron-down"></i>
         </button>
+        @if (Auth::check())
+        <a href="/carrito" class="flex gap-2 w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 sm:w-auto">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="carrito-numero">{{ $carritoCantidad }}</span>
+        </a>
+        @endif
         <div id="dropdownSort1" class="z-50 hidden w-40 divide-y divide-gray-100 rounded-lg bg-white shadow dark:bg-gray-700" data-popper-placement="bottom">
           <ul class="p-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400" aria-labelledby="sortDropdownButton">
             @if(request()->has("o") && request()->o == "nA")

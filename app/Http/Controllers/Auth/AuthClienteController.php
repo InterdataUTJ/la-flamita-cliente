@@ -55,7 +55,7 @@ class AuthClienteController extends Controller {
         $cliente->clave = Hash::make($credenciales["clave"]);
         $cliente->estado = true;
         $cliente->verificado = false;
-        $cliente->avatar = "/storage/avatar/default.svg";
+        $cliente->avatar = asset("/storage/avatar/default.svg");
         $cliente->save();
 
         Auth::guard("cliente")->login($cliente, $request->has("remember"));

@@ -24,7 +24,13 @@
             <a href="/perfil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100">Mi perfil</a>
           </li>
           <li>
-            <form class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100" action="/empleado/logout" method="POST">
+            <a href="/carrito" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100">Mi carrito</a>
+          </li>
+          <li>
+            <a href="/pedidos" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100">Mis pedidos</a>
+          </li>
+          <li>
+            <form class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-100 hover:text-primary-900 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-primary-100" action="/logout" method="POST">
               @csrf
               <button type="submit">Cerrar sesión</button>
             </form>
@@ -41,7 +47,13 @@
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
     <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       <li>
-        <x-navbar.item url="/" label="Menú" />
+        <x-navbar.item route="landing" label="Inicio" />
+      </li>
+      <li>
+        <x-navbar.item route="menu" label="Menú" />
+      </li>
+      <li>
+        <x-navbar.item route="carrito" label="Carrito" />
       </li>
     </ul>
   </div>

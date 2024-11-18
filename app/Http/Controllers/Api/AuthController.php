@@ -48,11 +48,24 @@ class AuthController extends Controller {
     $cliente->clave = Hash::make($credenciales["clave"]);
     $cliente->estado = true;
     $cliente->verificado = false;
-    $cliente->avatar = "/storage/avatar/default.svg";
+    $cliente->avatar = asset("/storage/avatar/default.svg");
     $cliente->save();
     $token = $cliente->createToken("ApiTokenUser");
     
     return ['token' => $token->plainTextToken];
+  }
+
+  public function validar(Request $request) {
+
+    if ($request->user()->estado != true) {
+      return response()->json([
+        "mensaje" => "Usuario no valido o inactivo.",
+      ], 401);
+    }
+
+    return response()->json([
+      "mensaje" => "Token valido.",
+    ]);
   }
 
   public function profile(Request $request) {
@@ -65,8 +78,8 @@ class AuthController extends Controller {
     $perfil["correo"] = $cliente->correo;
     $perfil["verificado"] = boolval($cliente->verificado);
     $perfil["google"] = $cliente->google_id != null;
-
-    return $perfil;
+    
+    return response()->json($perfil, 200)->header('Cache-Control', 'public, max-age=3600');
   }
 
 

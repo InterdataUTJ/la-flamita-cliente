@@ -11,7 +11,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full flex flex-col" style="background-color: #f4f4f4;">
-    <x-navbar />
+
+    @section("navbar")
+        <x-navbar />
+    @endsection
+    @yield("navbar")
+    
     <x-toast />
 
     @yield("contenido.arriba")
@@ -19,6 +24,11 @@
     <main class="grow w-11/12 max-w-screen-lg lg:max-w-screen-xl mx-auto p-5 box-border">
       @yield("contenido")
     </main>
+
+    @section("footer")
+        <x-footer />
+    @endsection
+    @yield("footer")
 
 </body>
 </html>
