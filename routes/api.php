@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CarritoController;
 use App\Http\Controllers\Api\GoogleController;
 use App\Http\Controllers\Api\ProductoController;
 use Illuminate\Http\Request;
@@ -25,6 +26,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/logout", [AuthController::class, "logout"]);
     Route::get("/validar", [AuthController::class, "validar"]);
     Route::get("/profile", [AuthController::class, "profile"]);
+
+    Route::get("/carrito", [CarritoController::class, "items"]);
+    Route::post("/carrito/add", [CarritoController::class, "añadir"]);
+    Route::post("/carrito/eliminar", [CarritoController::class, "eliminar"]);
 });
 
 Route::get("/categoria/{categoria}", [ProductoController::class, "categorias"]);

@@ -147,6 +147,11 @@ class CarritoStatic {
 
     return $carrito;
   }
+
+  public static function getItemsArray() {
+    $items = CarritoItem::with("producto.producto_fotos")->where("cliente_id",  Auth::user()->id)->get();
+    return $items;
+  }
 }
 
 ?>

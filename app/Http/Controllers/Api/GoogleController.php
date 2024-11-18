@@ -7,7 +7,6 @@ use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller {
 
