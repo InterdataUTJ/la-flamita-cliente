@@ -12,7 +12,7 @@ class PaypalOrder extends PaypalOrderCapture {
     parent::__construct($ctx);
   }
 
-  public function create($amountTotal) {
+  public function create($amountTotal, $mobile = false) {
     $paypalOrderBody = [
       "intent" => "CAPTURE", 
       "purchase_units" => [[
@@ -28,8 +28,8 @@ class PaypalOrder extends PaypalOrderCapture {
                   "brand_name" => $this->ctx->getBrandName(), 
                   "locale" => $this->ctx->getLocale(), 
                   "user_action" => "PAY_NOW", 
-                  "return_url" => $this->ctx->getReturnUrl(), 
-                  "cancel_url" => $this->ctx->getCancelUrl() 
+                  "return_url" => $this->ctx->getReturnUrl($mobile), 
+                  "cancel_url" => $this->ctx->getCancelUrl($mobile) 
               ] 
           ] 
       ] 

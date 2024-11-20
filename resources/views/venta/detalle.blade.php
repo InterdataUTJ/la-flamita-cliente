@@ -1,6 +1,6 @@
 @extends('plantillas.layout')
 
-@section('titulo', 'Pedido #{{ $venta->id }}')
+@section('titulo', 'Pedido #'.$venta->id)
 
 @section('contenido')
     <h2 class="font-bold text-3xl mb-3">Pedido #{{ $venta->id }}</h2>

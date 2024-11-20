@@ -28,7 +28,8 @@ Route::get("/menu", [ProductoController::class, "index"])->name("menu");
 Route::get("/producto/{id}", [ProductoController::class, "detalle"])->name("producto.detalle");
 
 
-
+// Vista con Formulario para Contactarnos
+Route::view('/contacto', 'contacto.contacto')->name('contacto');
 
 
 // Clientes

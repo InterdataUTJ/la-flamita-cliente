@@ -55,6 +55,9 @@
       <li>
         <x-navbar.item route="carrito" label="Carrito" />
       </li>
+      <li>
+        <x-navbar.item route="contacto" label="Contáctanos" />
+      </li>
     </ul>
   </div>
   </div>

@@ -31,11 +31,11 @@ class PerfilController extends Controller {
         $cliente->apellido = $request->apellido;
         $cliente->correo = $request->correo;
         
-        if ($request->has("clave")) {
+        if ($request->has("clave") && $request->clave != null) {
             $cliente->clave = Hash::make($request->clave);
         }
         
-        if ($request->hasFile("avatar")) {
+        if ($request->hasFile("avatar") && $request->clave != null) {
             $image = $request->avatar;
             $imagennueva = "cliente_{$cliente->id}.{$image->extension()}";
             $ruta = $image->storeAs('imagenes/clientes/', $imagennueva, 'public');

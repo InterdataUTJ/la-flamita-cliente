@@ -12,6 +12,9 @@
                 <li>
                     <a href="{{ route("menu") }}" class="hover:underline hover:text-primary-600 me-4 md:me-6">Menú</a>
                 </li>
+                <li>
+                    <a href="{{ route("contacto") }}" class="hover:underline hover:text-primary-600 me-4 md:me-6">Contáctanos</a>
+                </li>
                 @if (Auth::check())
                     <li>
                         <a href="{{ route("carrito") }}" class="hover:underline hover:text-primary-600 me-4 md:me-6">Carrito</a>

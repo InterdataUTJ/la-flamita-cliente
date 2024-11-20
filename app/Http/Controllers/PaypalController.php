@@ -66,6 +66,12 @@ class PaypalController extends Controller {
             return view("venta.cancelado");
         }
 
+
+        $venta->productos()->each(function($producto) {
+            $producto->existencias -= $producto->pivot->cantidad;
+            $producto->save();
+        });
+
         $venta->estado = "PAGADO";
         $venta->save();
         Carrito::limpiar();

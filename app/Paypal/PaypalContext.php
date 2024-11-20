@@ -22,12 +22,14 @@ class PaypalContext {
     return $this->apiContext["locale"];
   }
 
-  public function getReturnUrl() {
-    return $this->apiContext["return_url"];
+  public function getReturnUrl($mobile = false) {
+    if ($mobile) return $this->apiContext["android"]["return_url"];
+    return $this->apiContext["web"]["return_url"];
   }
 
-  public function getCancelUrl() {
-    return $this->apiContext["cancel_url"];
+  public function getCancelUrl($mobile = false) {
+    if ($mobile) return $this->apiContext["android"]["cancel_url"];
+    return $this->apiContext["web"]["cancel_url"];
   }
 
   public function getClientId() {

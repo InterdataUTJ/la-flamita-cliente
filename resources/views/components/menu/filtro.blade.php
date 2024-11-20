@@ -13,7 +13,7 @@
       <i class="fa-solid fa-xmark"></i>
     </button>
   </header>
-  <form action="/" method="GET" class="p-5">
+  <form action="{{ route("menu") }}" method="GET" class="p-5">
     @if(request()->has("o"))
       <input type="hidden" name="o" value="{{ request()->o }}">
     @endif
