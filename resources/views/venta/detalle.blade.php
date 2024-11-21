@@ -15,8 +15,7 @@
         <p class="italic my-2"><b>Importante:</b> No compartas el código con nadie, solo muestralo al llegar a la caja.</p>
         
         <div class="bg-primary-600 text-white p-5 my-4 rounded-lg flex flex-col items-center justify-center gap-2">
-          <img class="select-none" id="venta_token_barcode" alt="token">
-          <script>document.body.onload = () => { crearBarcode('#venta_token_barcode', '{{ $venta->token }}'); };</script>
+          <img src="/api/pedido/token/{{ $venta->token }}" class="select-none" id="venta_token_barcode" alt="token">
           <p class="text-sm md:text-base lg:text-lg text-center font-bold tracking-wider">{{ $venta->token }}</p>
         </div>
       </div>

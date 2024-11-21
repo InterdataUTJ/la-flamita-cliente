@@ -12,9 +12,11 @@ use App\Paypal\PaypalOrder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
+use Picqer\Barcode\Types\TypeCode128;
+use Picqer\Barcode\Renderers\SvgRenderer;
 
 class VentaController extends Controller {
 
@@ -34,6 +36,10 @@ class VentaController extends Controller {
             "carrito" => Carrito::getItems()
         ];
 
+        if ($datos["carrito"]->getCabeza() === null) {
+            return response()->json([ "message" => "Carrito vacío." ], 400);
+        }
+
 
         try {
             DB::transaction(function() use ($datos, &$ventaId) {
@@ -42,7 +48,7 @@ class VentaController extends Controller {
                 $venta->fecha_venta = $datos["fecha_venta"];
                 $venta->fecha_pago  = $datos["fecha_pago"];
                 $venta->estado      = "PENDIENTE";
-                $venta->metodo_pago = "PAYPAL";
+                $venta->metodo_pago = "PAYPAL_ANDROID";
                 $venta->save();
                 $ventaId = $venta->id;
                 $randomString = Str::random(20);
@@ -67,25 +73,25 @@ class VentaController extends Controller {
                 $venta->save();
             });
         } catch (\Exception $e) {
-          return redirect()->away("laflamita://venta/error/{$e->getMessage()}");
+          return response()->json([ "message" => "Error: {$e->getMessage()}" ], 400);
         }
         
         // Paypal
         $venta = Venta::find($ventaId);
-        if (!$venta) return redirect()->away("laflamita://venta/error/Error al procesar el pago.");
-        if ($venta->estado != "PENDIENTE") return redirect()->away("laflamita://venta/error/Venta ya pagada.");
+        if (!$venta) return response()->json([ "message" => "Error al procesar el pago." ], 400);
+        if ($venta->estado != "PENDIENTE") return response()->json([ "message" => "Venta ya pagada." ], 400);
 
         $order = new PaypalOrder($this->paypalContext);
         $success = $order->create($venta->getTotal(), true);
 
         if (!$success) {
-          return redirect()->away("laflamita://venta/error/Error al procesar el pago.");
+          return response()->json([ "message" => "Error al procesar el pago." ], 400);
         }
 
         $venta->paypal_id = $order->id();
         $venta->save();
 
-        return redirect()->away($order->link());
+        return response()->json([ "url" => $order->link() ]);
     }
 
     public function cancelado(Request $request) {
@@ -93,10 +99,10 @@ class VentaController extends Controller {
           return redirect()->away("laflamita://venta/error/Error al procesar el pago.");
         }
 
-        $venta = Venta::where("token", $request->token)->first();
+        $venta = Venta::where("paypal_id", $request->token)->first();
         if ($venta) $venta->delete();
 
-        return redirect()->away("laflamita://venta/estado/cancelado");
+        return redirect()->away("laflamita://venta/error/Venta cancelada.");
     }
 
 
@@ -107,7 +113,7 @@ class VentaController extends Controller {
 
       $venta = Venta::where("paypal_id", $request->token)->first();
       if (!$venta || $venta->estado != "PENDIENTE") {
-        return redirect()->away("laflamita://venta/error/Venta ya realizada.");
+        return redirect()->away("laflamita://venta/error/Esta venta ya fue pagada con anterioridad.");
       }
 
       $order = new PaypalOrder($this->paypalContext);
@@ -115,40 +121,62 @@ class VentaController extends Controller {
 
       if (!$success || !$order->isCompleted()) {
         $venta->delete();
-        return redirect()->away("laflamita://venta/estado/cancelado");
+        return redirect()->away("laflamita://venta/error/Venta cancelada.");
       }
 
       
 
-      // Actualizar el inventario
-      foreach ($venta->detalle_ventas as $detalleVenta) {
-        $producto = $detalleVenta->producto;
-        $producto->cantidad -= $detalleVenta->cantidad;
+      $venta->productos()->each(function($producto) {
+        $producto->existencias -= $producto->pivot->cantidad;
         $producto->save();
-      }
+      });
 
+      Carrito::limpiarCliente($venta->cliente_id);
       $venta->estado = "PAGADO";
       $venta->save();
-      Carrito::limpiar();
-      return redirect()->away("laflamita://venta/estado/aprovado/{$venta->id}");
-    }
-
-    public function index() {
-        $ventas = Venta::where([
-            "cliente_id" => Auth::user()->id,
-            ["estado", "<>", "PENDIENTE"]
-        ])->get();
-        
-        return view("venta.listar")->with("pedidos", $ventas);
+      return redirect()->away("laflamita://venta/aprobada/{$venta->id}");
     }
 
 
     public function detalle($id) {
-        $venta = Venta::where("cliente_id", Auth::user()->id)->find($id);
-        if ($venta === null) {
-            return response()->json(["error" => "No se encontró la venta"], 404);
-        }
+      $venta = Venta::with(['productos.producto_fotos' => function ($query) {
+        $query->limit(1); // Solo traer la primera foto
+      }])->find($id);
 
-        return response()->json($venta);
+      if ($venta === null) {
+        return response()->json(["message" => "No se encontró la venta"], 404);
+      }
+
+      $productos = $venta->productos->map(function ($producto) {
+          return [
+              'nombre'      => $producto->nombre,
+              'descripcion' => $producto->descripcion,
+              'cantidad'    => $producto->pivot->cantidad,
+              'precio'      => $producto->pivot->precio,
+              'descuento'   => $producto->pivot->descuento,
+              'foto_url'    => $producto->producto_fotos->first()->url ?? null, // Primera foto o null si no existe
+          ];
+      });
+
+      return response()->json([
+          "id" => $venta->id,
+          "fecha_venta" => $venta->fecha_venta,
+          "estado" => $venta->estado,
+          "token" => $venta->token,
+          "metodo_pago" => $venta->metodo_pago,
+          "paypal_id" => $venta->paypal_id,
+          'productos' => $productos,
+      ]);
+    }
+
+    
+
+    public function codigo($token) {
+      $barcode = (new TypeCode128())->getBarcode($token);
+
+      $renderer = new SvgRenderer();
+      $renderer->setForegroundColor([255, 255, 255]);
+      $renderer->setBackgroundColor([243, 118, 73]);
+      return response($renderer->render($barcode, 400, 70))->header("Content-Type", "image/svg+xml");
     }
 }

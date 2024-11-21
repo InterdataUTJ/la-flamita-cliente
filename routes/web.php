@@ -68,6 +68,6 @@ Route::middleware("auth:cliente")->group(function() {
 
     Route::get('/paypal/redirect/{ventaId}', [PaypalController::class, 'redirect'])->name('paypal.redirect');
     Route::get('/paypal/cancelado', [PaypalController::class, 'cancelado'])->name('paypal.cancelado');
-    Route::get('/paypal/aprovado', [PaypalController::class, 'aprovado'])->name('paypal.aprovado');
+    Route::get('/paypal/aprobado', [PaypalController::class, 'aprobado'])->name('paypal.aprobado');
 
 });

@@ -109,6 +109,16 @@ class CarritoStatic {
     }
   }
 
+  public static function limpiarCliente($cliente_id) {
+    try {
+      $carritoItems = CarritoItem::where("cliente_id",  $cliente_id)->delete();
+
+      return isset($carritoItems);
+    } catch(Exception $e) {
+      return false;
+    }
+  }
+
 
   public static function getResumen() {
     $total = 0;

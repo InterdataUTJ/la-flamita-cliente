@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller {
@@ -15,6 +16,14 @@ class GoogleController extends Controller {
 
   public function callback() {
     $user = Socialite::driver('google')->stateless()->user();
+
+    $imageUrl = $user->avatar;
+    $image = file_get_contents($imageUrl);
+
+    $imagenNueva = "cliente_google_{$user->id}.png";
+    $ruta = "imagenes/clientes/$imagenNueva";
+    Storage::disk('public')->put($ruta, $image);
+    $user->avatar = asset("/storage/$ruta");
 
     $userDB = Cliente::updateOrCreate([
         'google_id' => $user->id,

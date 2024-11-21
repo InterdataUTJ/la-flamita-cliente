@@ -48,7 +48,7 @@ class PaypalController extends Controller {
     }
 
 
-    public function aprovado(Request $request) {
+    public function aprobado(Request $request) {
         $request->validate([
             "token" => "required"
         ]);

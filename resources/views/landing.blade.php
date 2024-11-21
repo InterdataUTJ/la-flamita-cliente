@@ -13,6 +13,34 @@
 
 <h2 class="font-bold text-2xl mt-8 mb-5 pb-2 border-b-2 border-quinary-700">Sobre nosotros</h2>
 
+
+<div class="mb-12">
+    <p class="text-lg italic text-center">
+      Somos una taqueria tradicional mexicana fundada en 1990 por el <span class="font-bold">Ing. Jose Alberto Jimenez Noroña</span>
+      como parte de su vision por compartir la cocina tradicional mexicana.  
+    </p>
+</div>
+
+<section class="mb-8 flex gap-6 items-center">
+    <i class="fa-regular fa-map fa-2x bg-primary-600 p-5 rounded-full text-white"></i>
+    <article>
+        <h3 class="font-bold text-xl">Nuestra mision</h3>
+        <p class="text-lg flex flex-col"> 
+            Somos una empresa comprometida en utilizar ingredientes de alta calidad produciendo unos de los mejopres tacos de la ciudad.
+        </p>
+    </article>
+</section>
+
+<div class="mb-5 flex gap-6 items-center">
+    <i class="fa-solid fa-bullseye fa-2x bg-primary-600 p-5 rounded-full text-white"></i>
+    <article>
+        <h3 class="font-bold text-xl">Visión</h3>
+        <p class="text-lg">
+            Buscamos ser parte de las empresas gatronomicas lideres del mercado mexicano.
+        </p>
+    </article>
+</div>
+
 <h2 class="font-bold text-2xl mt-8 mb-5 pb-2 border-b-2 border-quinary-700">Nuestras instalaciones</h2>
 
 <div id="default-carousel" class="relative w-full" data-carousel="slide">
@@ -20,23 +48,23 @@
   <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
        <!-- Item 1 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="https://lh3.googleusercontent.com/p/AF1QipNNOXoFaFy138z_2-8WyNVHD1xWC9dqfVbVCa72=s1360-w1360-h1020" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+          <img src="{{ asset("images/carrusel/1.jpg") }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
       </div>
       <!-- Item 2 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="https://lh3.googleusercontent.com/p/AF1QipOTcD-zJ6Zhzynj04SbKQ6yl3dyUQXcxIFnnPie=s1360-w1360-h1020" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+          <img src="{{ asset("images/carrusel/2.jpg") }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
       </div>
       <!-- Item 3 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="https://lh3.googleusercontent.com/p/AF1QipNnPPsvdnnslREZqT36qZPcSidMd2grSb8_DIOs=s1360-w1360-h1020" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+          <img src="{{ asset("images/carrusel/3.jpg") }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
       </div>
       <!-- Item 4 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="https://lh3.googleusercontent.com/p/AF1QipM6xszwY1YVswx3pgJKAMEvwUE7G1dUHgwlVNsy=s1360-w1360-h1020" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+          <img src="{{ asset("images/carrusel/4.jpg") }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
       </div>
       <!-- Item 5 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="https://lh3.googleusercontent.com/p/AF1QipMC-uHytfN6-63UNLXRlJNXfCOeBprHABAvAT1e=s1360-w1360-h1020" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+          <img src="{{ asset("images/carrusel/4.jpg") }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
       </div>
   </div>
   <!-- Slider indicators -->

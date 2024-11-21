@@ -6,12 +6,12 @@ return [
   "locale" => env("PAYPAL_LOCALE", "es-MX"),
   "brand_name" => env("PAYPAL_BRAND_NAME", "La Flamita"),
   "web" => [
-    "return_url" => env("PAYPAL_RETURN_URL", "http://localhost:8001/paypal/aprovado"),
+    "return_url" => env("PAYPAL_RETURN_URL", "http://localhost:8001/paypal/aprobado"),
     "cancel_url" => env("PAYPAL_CANCEL_URL", "http://localhost:8001/paypal/cancelado"),
   ],
 
   "android" => [
-    "return_url" => env("PAYPAL_API_RETURN_URL", "http://localhost:8001/api/paypal/aprovado"),
+    "return_url" => env("PAYPAL_API_RETURN_URL", "http://localhost:8001/api/paypal/aprobado"),
     "cancel_url" => env("PAYPAL_API_CANCEL_URL", "http://localhost:8001/api/paypal/cancelado"),
   ],
 

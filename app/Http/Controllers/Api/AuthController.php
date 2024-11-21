@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
+use App\Models\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -89,5 +90,24 @@ class AuthController extends Controller {
     return response()->json([
         "mensaje" => "Sesión cerrada.",
     ]);
+  }
+
+  public function pedidos() {
+    $ventas = Venta::where([
+        "cliente_id" => Auth::user()->id,
+        ["estado", "<>", "PENDIENTE"]
+    ])->get();
+
+    if (!$ventas) {
+      return response()->json([ "message" => "No hay pedidos registrados." ], 400);
+    }
+
+    $resultado = [];
+    foreach ($ventas as $venta) {
+      $resultado[$venta->id]["fecha"] = date_create($venta->fecha_venta)->format("d/m/Y");
+      $resultado[$venta->id]["total"] = $venta->getTotal();
+    }
+    
+    return response()->json($resultado);
   }
 }
