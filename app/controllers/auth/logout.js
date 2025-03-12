@@ -6,6 +6,6 @@ export default async function logout(req, res, next) {
     await ApiToken.eliminar(req.user.currentJWT);
     res.status(204).end();
   } catch (error) {
-    return next(new InvalidAuthError());
+    return next(new InvalidAuthError(error.message));
   }
 };

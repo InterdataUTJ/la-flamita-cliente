@@ -48,6 +48,10 @@ export const JwtInvalidError = errorMaker('JwtInvalidError', 'El JWT no es valid
 export const InvalidAuthError = errorMaker('InvalidAuthError', 'Las credenciales no son correctas', 400);
 /** Error al actualizar el perfil */
 export const PerfilUpdateError = errorMaker('PerfilUpdateError', 'Error al actualizar el perfil', 500);
+/** Error al mostrar el perfil */
+export const PerfilShowError = errorMaker('PerfilShowError', 'Error al mostrar el perfil', 500);
+/** Error al desactivar el perfil */
+export const PerfilDeleteError = errorMaker('PerfilDeleteError', 'Error al desactivar el perfil', 500);
 
 
 
