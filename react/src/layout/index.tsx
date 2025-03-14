@@ -1,14 +1,15 @@
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { useEffect } from "react";
 
 interface TemplateProps {
   children: React.ReactNode;
-  auth?: boolean;
   title?: string;
+  className?: string;
+  before?: React.ReactNode | React.ReactNode[];
 }
 
-export default function Template({ children, auth, title }: TemplateProps) {
+export default function Template({ children, title, className, before }: TemplateProps) {
   
   useEffect(() => {
     if (title) document.title = `La Flamita | ${title}`;
@@ -17,8 +18,9 @@ export default function Template({ children, auth, title }: TemplateProps) {
 
   return (
     <>
-      <Navbar auth={auth} />
-      <main className="grow w-11/12 max-w-screen-lg lg:max-w-screen-xl mx-auto p-5 box-border">
+      <Navbar />
+      {before}
+      <main className={`grow w-11/12 max-w-screen-lg lg:max-w-screen-xl mx-auto p-5 box-border ${className}`}>
         {children}
       </main>
       <Footer />
