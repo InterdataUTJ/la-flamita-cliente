@@ -8,9 +8,11 @@ export default async function login(req, res, next) {
     const { correo, clave } = req.body;
 
     const cliente = await Cliente.findOne({ correo, estado: true });
+    if (!cliente) return next(new InvalidAuthError("Las credenciales son incorrectas"));
+    
     const isValidPassword = await bcrypt.compare(clave, cliente?.clave);
     if (!isValidPassword) {
-      return next(new InvalidAuthError());
+      return next(new InvalidAuthError("Las credenciales son incorrectas"));
     }
 
     const token = await ApiToken.crear(cliente._id, "Cliente");

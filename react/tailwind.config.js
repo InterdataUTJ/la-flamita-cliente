@@ -69,5 +69,8 @@ export default {
     },
   },
   plugins: [plugin()],
+  safelist: [{
+    pattern: /(bg|text|border)-(primary|secondary|tertiary|quaternary|quinary)-(1|2|3|4|5|6|7|8|9|)00/,
+  }]
 }
 
