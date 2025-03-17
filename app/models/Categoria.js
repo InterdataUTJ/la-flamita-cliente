@@ -17,12 +17,7 @@ categoriaDatosSchema.index({ nombre: 1 }, { unique: true });
 
 // Methods
 categoriaSchema.statics.listar = function() {
-  return this.find().lean().then(categoria => {
-    return categoria.map(cat => ({
-      ...cat,
-      datos: cat.datos?.length || 0
-    }));
-  });
+  return this.find().lean();
 }
 
 

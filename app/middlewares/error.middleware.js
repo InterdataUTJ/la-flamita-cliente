@@ -64,6 +64,15 @@ export const ProductoShowError = errorMaker('ProductoShowError', 'Error al mostr
 
 
 
+// ===== Categoria Errors =====
+
+/** Error al listar los productos */
+export const CategoriaListError = errorMaker('CategoriaListError', 'Error al listar los Categorias', 500);
+/** Error al mostrar el Categoria */
+export const CategoriaShowError = errorMaker('CategoriaShowError', 'Error al mostrar el Categoria', 500);
+
+
+
 // ===== Venta Errors =====
 
 /** Error al listar los productos */
