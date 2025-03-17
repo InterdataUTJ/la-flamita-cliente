@@ -11,6 +11,8 @@ import '#config/db.config.js';
 // Import routes
 import authRouter from '#routes/auth.routes.js';
 import perfilRouter from '#routes/perfil.routes.js';
+import productoRouter from '#routes/producto.routes.js';
+import categoriaRouter from '#routes/categoria.routes.js';
 
 
 // Constants
@@ -29,6 +31,8 @@ app.use(express.static('public'));
 // Routes
 app.use('/api', authRouter);
 app.use('/api/perfil', perfilRouter);
+app.use('/api/producto', productoRouter);
+app.use('/api/categoria', categoriaRouter);
 
 // Frontend
 app.use('*', (_, res) => res.sendFile(path.join(import.meta.dirname, 'public/index.html')));
