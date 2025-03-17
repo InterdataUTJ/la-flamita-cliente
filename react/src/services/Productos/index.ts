@@ -1,5 +1,5 @@
 import Http from "../base";
-import { ProductoResponse, ProductoRequest } from "./types";
+import { ProductoResponse } from "./types";
 
 export default class ProductoService {
   static listar(): Promise<ProductoResponse[]> {
