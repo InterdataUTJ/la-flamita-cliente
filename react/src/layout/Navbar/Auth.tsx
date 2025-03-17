@@ -61,6 +61,7 @@ export default function AuthNavbar({ auth }: { auth: AuthContextData }) {
             <span className="px-4 border-b block text-sm pb-2 text-gray-500 truncate">{auth.user?.correo}</span>
           </Dropdown.Header>
           <Dropdown.Item as={Link} to="/perfil">Mi perfil</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/carrito">Mi carrito</Dropdown.Item>
           <Dropdown.Item onClick={auth.logout}>Cerrar sesión</Dropdown.Item>
         </Dropdown>
 
