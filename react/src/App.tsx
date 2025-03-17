@@ -10,6 +10,10 @@ import PerfilPage from './pages/Auth/Perfil';
 import PerfilEditarPage from './pages/Auth/Editar';
 import Error404Page from './pages/Errors/404';
 
+// Productos
+import MenuPage from './pages/Producto/Menu';
+import MostrarProducto from './pages/Producto/Mostrar';
+
 export default function App() {
 
   return (
@@ -22,6 +26,9 @@ export default function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/perfil" element={<PerfilPage />} />
             <Route path="/perfil/editar" element={<PerfilEditarPage />} />
+
+            <Route path="/menu" element={<MenuPage />} />
+            <Route path="/producto/:id" element={<MostrarProducto />} />
 
             <Route path="*" element={<Error404Page />} />
 

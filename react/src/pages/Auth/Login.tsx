@@ -20,7 +20,7 @@ export default function LoginPage() {
 
     try {
       await auth.login(correoRef.current.value, claveRef.current.value);
-      navigate("/panel", { replace: true });
+      navigate("/", { replace: true });
     } catch (e) {
       if (e instanceof Error) return alert(e.message);
       alert('Ocurrió un error inesperado');
