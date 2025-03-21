@@ -1,5 +1,3 @@
-export const SERVER_URL = "http://localhost:8080";
-
 export interface ErrorResponse {
   name?: string;
   message?: string;
@@ -19,7 +17,7 @@ function ApiServiceError({ name, message }: ErrorResponse = {}): Error {
 
 export default class Http {
 
-  protected static baseUrl: string = `${SERVER_URL}/api`;
+  protected static baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
   static async get<T>(url: string, options: HttpOptions = {}): Promise<T | undefined> {
     return this.noBodyRequest<T>("get", url, options);
