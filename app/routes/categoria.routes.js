@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import validate from '#middlewares/validations/categoria.js';
 const categoriaRouter = Router();
 
 // Import controller
@@ -8,6 +9,6 @@ import mostrar from '#controllers/categoria/mostrar.js';
 
 // Routes
 categoriaRouter.get('/listar', listar);
-categoriaRouter.get('/mostrar/:categoriaId', mostrar);
+categoriaRouter.get('/mostrar/:categoriaId', [validate("mostrar")], mostrar);
 
 export default categoriaRouter;
