@@ -13,6 +13,7 @@ import authRouter from '#routes/auth.routes.js';
 import perfilRouter from '#routes/perfil.routes.js';
 import productoRouter from '#routes/producto.routes.js';
 import categoriaRouter from '#routes/categoria.routes.js';
+import ventaRouter from '#routes/venta.routes.js';
 
 
 // Constants
@@ -33,6 +34,7 @@ app.use('/api', authRouter);
 app.use('/api/perfil', perfilRouter);
 app.use('/api/producto', productoRouter);
 app.use('/api/categoria', categoriaRouter);
+app.use('/api/venta', ventaRouter);
 
 // Frontend
 app.use('*', (_, res) => res.sendFile(path.join(import.meta.dirname, 'public/index.html')));
