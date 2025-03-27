@@ -2,9 +2,22 @@ import { Link } from "react-router";
 import { MenuItemProps } from "./types";
 import Button from "../Button";
 import useAuthContext from "@/hooks/AuthContext/hook";
+import CarritoService from "@/services/Carrito";
+import { useRef } from "react";
 
 export default function MenuItem(props: MenuItemProps) {
   const auth = useAuthContext();
+  const cantidadRef = useRef<HTMLInputElement>(null);
+
+  const handleCarrito = () => {
+    if (!cantidadRef?.current?.value) return;
+    if (!auth.token) return alert("Debes iniciar sesión para agregar productos al carrito");
+    CarritoService.agregar(auth.token, props._id, parseInt(cantidadRef.current.value))
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrió un error al agregar el producto al carrito");
+      });
+  };
 
   return (
     <div className="rounded-lg border grow shadow bg-white p-6 flex flex-col">
@@ -65,12 +78,13 @@ export default function MenuItem(props: MenuItemProps) {
                 type="number"
                 id="add_carrito_producto_{{ $id }}"
                 className="w-5/12 h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5"
-                defaultValue="1"
+                ref={cantidadRef}
+                defaultValue={1}
                 min={1}
                 max={props.cantidad}
               />
 
-              <Button>
+              <Button onClick={handleCarrito} >
                 <i className="fa-solid fa-cart-plus"></i>
                 Añadir al carrito
               </Button>

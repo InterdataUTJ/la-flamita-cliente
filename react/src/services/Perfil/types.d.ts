@@ -1,3 +1,10 @@
+export interface RegisterRequest {
+  nombre: string;
+  apellido: string;
+  correo: string;
+  clave: string;
+}
+
 export interface LoginResponse {
   token: string;
 }

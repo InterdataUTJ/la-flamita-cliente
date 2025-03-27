@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import { Dropdown, Modal } from "flowbite-react";
 import {
   IconFilterFilled,
   IconChevronCompactDown,
   IconArrowsDownUp,
   IconSortDescendingLetters,
-  IconShoppingCartFilled,
 } from "@tabler/icons-react";
 import Template from "@/layout";
 import ProductoService from "@/services/Productos";
@@ -19,7 +18,6 @@ import MenuItem from "@/components/Menu";
 
 
 export default function MenuPage() {
-
   const [search, setSearch] = useSearchParams();
   const [categorias, setCategorias] = useState<CategoriaResponse[]>([]);
   const [filtrar, setFiltrar] = useState<string[]>(JSON.parse(search.get("f") || "[]"));
@@ -134,16 +132,6 @@ export default function MenuPage() {
               Precio
             </Dropdown.Item>
           </Dropdown>
-
-          {true && (
-            <Link
-              to="/carrito"
-              className="flex gap-2 w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 sm:w-auto"
-            >
-              <IconShoppingCartFilled size={24} />
-              <span id="carrito-numero">0</span>
-            </Link>
-          )}
         </div>
 
         <Modal

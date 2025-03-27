@@ -3,10 +3,11 @@ import CategoriaService from "@/services/Categorias";
 import { CategoriaResponse } from "@/services/Categorias/types";
 import ProductoService from "@/services/Productos";
 import { ProductoResponse } from "@/services/Productos/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Button from "@/components/Button";
+import CarritoService from "@/services/Carrito";
 
 export default function MostrarProducto() {
 
@@ -16,6 +17,7 @@ export default function MostrarProducto() {
   const [currentFoto, setCurrentFoto] = useState("");
   const [categorias, setCategorias] = useState({} as CategoriaResponse[]);
   const [loading, setLoading] = useState(true);
+  const cantidadRef = useRef<HTMLInputElement>(null);
 
   const getCategoriaName = (categoriaDatoId: string) => {
     if (!Array.isArray(categorias)) return "";
@@ -34,6 +36,16 @@ export default function MostrarProducto() {
   const onHoverFoto = (foto: string) => {
     setCurrentFoto(foto);
   }
+
+  const handleCarrito = () => {
+    if (!cantidadRef?.current?.value) return;
+    if (!auth.token) return alert("Debes iniciar sesión para agregar productos al carrito");
+    CarritoService.agregar(auth.token, producto._id, parseInt(cantidadRef.current.value))
+      .catch(e => {
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrió un error al agregar el producto al carrito");
+      });
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -71,9 +83,6 @@ export default function MostrarProducto() {
                 src={foto} 
               />
             ))}
-            {/* @foreach ($producto->producto_fotos as $foto)
-              <img onmouseover="Producto.imagen.onMouse(this);" class="h-full w-auto rounded border cursor-pointer hover:border-primary-500 shadow" src="{{ $foto->url }}" alt="">
-            @endforeach */}
           </div>
         </div>
 
@@ -105,11 +114,14 @@ export default function MostrarProducto() {
               <input
                 type="number"
                 className="w-5/12 h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5"
-                defaultValue="1"
+                defaultValue={1}
+                ref={cantidadRef}
                 min={1}
                 max={producto.existencias}
               />
-              <Button>
+              <Button
+                onClick={handleCarrito}
+              >
                 <i className="fa-solid fa-cart-plus"></i>
                 Añadir al carrito
               </Button>

@@ -2,6 +2,7 @@ import Cliente from '#models/Cliente.js';
 import ApiToken from '#models/ApiToken.js';
 import bcrypt from 'bcryptjs';
 import { InvalidAuthError } from '#middlewares/error.middleware.js';
+import * as storage from '#util/storage/index.js';
 
 export default async function login(req, res, next) {
   try {
@@ -11,6 +12,7 @@ export default async function login(req, res, next) {
     cliente.apellido = apellido;
     cliente.correo = correo;
     cliente.clave = await bcrypt.hash(clave, 10);
+    cliente.avatar = storage.asset("/avatar_default.svg", false);
     await cliente.save();
     
     const token = await ApiToken.crear(cliente._id, "Cliente");

@@ -1,13 +1,13 @@
 import Http from "../base";
-import { LoginResponse, PerfilResponse, PerfilEdit } from "./types";
+import { LoginResponse, PerfilResponse, PerfilEdit, RegisterRequest } from "./types";
 
 export default class PerfilService {
   static login(correo: string, clave: string): Promise<LoginResponse> {
     return Http.post<LoginResponse>("/login", { correo, clave }) as Promise<LoginResponse>;
   }
 
-  static singup(nombre: string, apellido: string, correo: string, clave: string): Promise<LoginResponse> {
-    return Http.post<LoginResponse>("/singup", { nombre, apellido, correo, clave }) as Promise<LoginResponse>;
+  static singup(account: RegisterRequest): Promise<LoginResponse> {
+    return Http.post<LoginResponse>("/singup", account) as Promise<LoginResponse>;
   }
 
   static logout(jwt: string) {
@@ -15,7 +15,7 @@ export default class PerfilService {
   }
 
   static perfil(jwt: string) {
-    return Http.get<PerfilResponse>("/perfil", { jwt } );
+    return Http.get<PerfilResponse>("/perfil", { jwt } ) as Promise<PerfilResponse>;
   }
 
   static editar(jwt: string, data: PerfilEdit) {

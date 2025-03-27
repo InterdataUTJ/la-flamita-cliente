@@ -18,14 +18,6 @@ export default async function crear(req, res, next) {
       throw new VentaCreateError('No hay productos en el carrito');
     }
 
-    /* req.user.carrito = [{
-      producto_id: '67cca17b38ed31401c69a4f6',
-      cantidad: 1,
-      precio: 100,
-      descuento: 0
-    }];
-    await req.user.save(); */
-
     // Crear la venta en la base de datos
     const venta = new Venta();
     venta.cliente_id = req.user._id;
