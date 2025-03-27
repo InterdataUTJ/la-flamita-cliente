@@ -73,6 +73,13 @@ export const CategoriaShowError = errorMaker('CategoriaShowError', 'Error al mos
 
 
 
+// ===== Carrito Errors =====
+
+/** Error al listar los items */
+export const CarritoListError = errorMaker('CarritoListError', 'Error al listar los items', 500);
+
+
+
 // ===== Venta Errors =====
 
 /** Error al listar los productos */

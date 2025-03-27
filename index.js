@@ -14,6 +14,7 @@ import perfilRouter from '#routes/perfil.routes.js';
 import productoRouter from '#routes/producto.routes.js';
 import categoriaRouter from '#routes/categoria.routes.js';
 import ventaRouter from '#routes/venta.routes.js';
+import carritoRouter from '#routes/carrito.routes.js';
 
 
 // Constants
@@ -35,6 +36,7 @@ app.use('/api/perfil', perfilRouter);
 app.use('/api/producto', productoRouter);
 app.use('/api/categoria', categoriaRouter);
 app.use('/api/venta', ventaRouter);
+app.use('/api/carrito', carritoRouter);
 
 // Frontend
 app.use('*', (_, res) => res.sendFile(path.join(import.meta.dirname, 'public/index.html')));

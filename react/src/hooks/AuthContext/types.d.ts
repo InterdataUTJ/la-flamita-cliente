@@ -1,13 +1,12 @@
-import { CarritoItem } from "@/services/Perfil/types";
+import { RegisterRequest } from "@/services/Perfil/types";
 
 interface User {
   _id: string;
-  estado: boolean;
-  carrito: CarritoItem[],
   nombre: string;
   apellido: string;
   correo: string;
   avatar: string;
+  estado: boolean;
 }
 
 export interface AuthContextProviderProps {
@@ -18,7 +17,9 @@ export interface AuthContextData {
   token: string | undefined;
   user: User | undefined;
   goLogin: React.ReactNode;
+  goNotAllowed: React.ReactNode;
   login: (correo: string, clave: string) => Promise<void>;
+  register: (account: RegisterRequest) => Promise<void>;
   logout: () => void;
   update: (props: PerfilEdit) => Promise<void>;
 }
@@ -27,5 +28,5 @@ export interface AuthContextData {
 
 export interface AuthContextState {
   token: string | undefined;
-  user: User | undefined;
+  user: undefined | User;
 }

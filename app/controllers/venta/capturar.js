@@ -16,7 +16,6 @@ export default async function capturar(req, res, next) {
       throw new VentaCreateError('Venta no encontrada');
     }
 
-
     // Validar existencias de los productos
     for (const producto of venta.productos) {
       // Actualizar el stock de los productos
@@ -44,13 +43,16 @@ export default async function capturar(req, res, next) {
     await session.commitTransaction();
     session.endSession();
 
-    res.json(venta);
-
-    // Redirecto to react app /venta/${venta._id}
+    const redirectTo = `/venta/mostrar/${venta._id}`;
+    if (process.env.NODE_ENV === 'production') return res.redirect(redirectTo);
+    return res.redirect(`http://localhost:5173${redirectTo}`);
 
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    return next(new VentaCreateError(error.message));
+    
+    const redirectTo = "/carrito";
+    if (process.env.NODE_ENV === 'production') return res.redirect(redirectTo);
+    return res.redirect(`http://localhost:5173${redirectTo}`);
   }
 };

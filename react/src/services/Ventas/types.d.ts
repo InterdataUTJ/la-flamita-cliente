@@ -1,6 +1,8 @@
+import { ProductoResponse } from "../Productos/types";
+
 export interface VentaProducto {
   _id: string;
-  producto_id: string;
+  producto_id: ProductoResponse;
   cantidad: number;
   precio: number;
   descuento: number;
@@ -20,6 +22,6 @@ export interface VentaResponse {
 }
 
 export interface VentaRequest {
-  productos?: { [key: string]: number }[];
-  metodo_pago?: string;
+  paypalId: string;
+  paypalLink: string;
 }

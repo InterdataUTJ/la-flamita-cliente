@@ -70,7 +70,8 @@ export default {
   },
   plugins: [plugin()],
   safelist: [{
-    pattern: /(bg|text|border)-(primary|secondary|tertiary|quaternary|quinary)-(1|2|3|4|5|6|7|8|9|)00/,
+    pattern: /(bg|text|border)-(primary|secondary|tertiary|quaternary|quinary)-(1|2|3|4|5|6|7|8|9)00/,
+    variants: ['lg', 'hover', 'focus', 'lg:hover', 'lg:focus', 'focus-within', 'focus-visible', 'active', 'disabled'],
   }]
 }
 

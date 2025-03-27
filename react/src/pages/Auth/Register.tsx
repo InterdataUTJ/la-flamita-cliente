@@ -1,52 +1,79 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import useAuthContext from "@/hooks/AuthContext/hook";
 import Template from "@/layout";
 import Input from "@/components/Input";
 import { User } from "@/components/Icon";
 import Button from "@/components/Button";
+import { RegisterRequest } from "@/services/Perfil/types";
 
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const navigate = useNavigate();
   const auth = useAuthContext();
-  const correoRef = useRef<HTMLInputElement>(null);
-  const claveRef = useRef<HTMLInputElement>(null);
   const [loading, setloading] = useState(false);
 
-  //if (auth.token) return navigate("/", { replace: true });
+  // if (auth.token) return navigate("/", { replace: true });
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
-    if (!correoRef.current || !claveRef.current) return;
     setloading(true);
 
     try {
-      await auth.login(correoRef.current.value, claveRef.current.value);
-      navigate("/", { replace: true });
-    } catch (e) {
-      if (e instanceof Error) alert(e.message);
-      else alert('Ocurrió un error inesperado');
+        const formData = Object.fromEntries(new FormData(e.currentTarget));
+        if (formData.clave !== formData.clave2) throw new Error("Las contraseñas no coinciden");
+        const toSend: RegisterRequest = {
+          nombre: formData.nombre as string,
+          apellido: formData.apellido as string,
+          correo: formData.correo as string,
+          clave: formData.clave as string,
+        };
+
+        await auth.register(toSend);
+        //Mandamos al usuario a clientes listar
+        navigate("/", { replace: true });
+    } catch (e: Error | unknown) { 
+        if (e instanceof Error) alert(e.message);
+        else alert("Ocurrio un error al crear el cliente");
     }
 
     setloading(false);
-  };
+  }
 
   return (
-    <Template title="Iniciar sesión" className="max-w-screen-sm lg:max-w-screen-sm">
+    <Template title="Crear cuenta" className="max-w-screen-sm lg:max-w-screen-sm">
 
       <h1 className="pt-5 mb-5 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-        Iniciar sesión
+        Crear una cuenta
       </h1>
 
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSubmit}>
+        <Input
+          label="Nombre"
+          placeholder="John"
+          name="nombre"
+          type="text"
+          minLength={3}
+          maxLength={50}
+          required
+        />
+
+        <Input
+          label="Apellido"
+          placeholder="Doe"
+          name="apellido"
+          type="text"
+          minLength={3}
+          maxLength={50}
+          required
+        />
+
         <Input
           label="Correo electrónico"
           placeholder="example@laflamita.live"
           name="correo"
           type="email"
-          ref={correoRef}
           required
         />
 
@@ -54,23 +81,31 @@ export default function LoginPage() {
           type="password"
           placeholder="********"
           label="Contraseña" 
-          name="password" 
-          ref={claveRef}
+          name="clave" 
+          minLength={8}
+          maxLength={50}
+          required
+        />
+
+        <Input 
+          type="password"
+          placeholder="********"
+          label="Repetir contraseña" 
+          name="clave2"
           minLength={8}
           maxLength={50}
           required
         />
 
         <Button
-          loading={loading}
           type="submit"
         >
           <User />
-          Iniciar sesión
+          Crear cuenta
         </Button>
 
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-5">
-            ¿No tienes una cuenta? <Link to="/register" className="font-bold text-primary-600 hover:underline">Crea una</Link>
+            ¿Ya tienes una cuenta? <Link to="/login" className="font-bold text-primary-600 hover:underline">Inicia sesión</Link>
         </p>
       </form>
       <hr className="h-px my-8 bg-gray-300 border-0" />
