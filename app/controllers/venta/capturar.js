@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import crypto from 'crypto';
 import Venta from '#models/Venta.js';
 import Producto from '#models/Producto.js';
 import PaypalOrder from '#util/paypal/order/create.js';
@@ -37,22 +38,21 @@ export default async function capturar(req, res, next) {
 
     venta.estado = 'PAGADO';
     venta.fecha_pago = new Date();
-    venta.token = `${venta._id}${venta.cliente_id}${Date.now()}`;
+    venta.token = `${venta._id}:${crypto.randomBytes(5).toString('hex')}`; // 35 characters
     await venta.save({ session });
 
     await session.commitTransaction();
     session.endSession();
 
-    const redirectTo = `/venta/mostrar/${venta._id}`;
-    if (process.env.NODE_ENV === 'production') return res.redirect(redirectTo);
-    return res.redirect(`http://localhost:5173${redirectTo}`);
+    const redirectTo = ``;
+    if (process.env.NODE_ENV === 'production') return res.redirect(`${process.env.APP_URL}/venta/mostrar/${venta._id}`);
+    return res.redirect(`http://localhost:5173/venta/mostrar/${venta._id}`);
 
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
     
-    const redirectTo = "/carrito";
-    if (process.env.NODE_ENV === 'production') return res.redirect(redirectTo);
-    return res.redirect(`http://localhost:5173${redirectTo}`);
+    if (process.env.NODE_ENV === 'production') return res.redirect(`${process.env.APP_URL}/carrito`);
+    return res.redirect(`http://localhost:5173/carrito`);
   }
 };

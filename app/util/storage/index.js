@@ -1,7 +1,7 @@
 import path from 'node:path';
 import fs from "node:fs";
 import print from '#util/print/index.js';
-const appUrl = process.env.APP_URL.replace("{{PORT}}", process.env.PORT);
+const appUrl = process.env.APP_URL;
 
 export async function save(destination, buffer) {
   try {

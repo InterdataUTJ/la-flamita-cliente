@@ -41,6 +41,8 @@ export const ValidationError = errorMaker('ValidationError', 'Error en los datos
 // ===== Perfil Errors =====
 
 /** No se encontro un JWT valido */
+export const GoogleAuthError = errorMaker('GoogleAuthError', 'No se pudo iniciar sesión con google.', 500);
+/** No se encontro un JWT valido */
 export const JwtMissingError = errorMaker('JwtMissingError', 'No se encontro un JWT valido', 403);
 /** El JWT no es valido o esta expirado */
 export const JwtInvalidError = errorMaker('JwtInvalidError', 'El JWT no es valido o esta expirado', 403);
