@@ -13,7 +13,6 @@ export default function PerfilEditarPage() {
   const navigate = useNavigate();
   const auth = useAuthContext();
   const [loading, setLoading] = useState(false);
-  if (!auth.token) return auth.goLogin;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +37,8 @@ export default function PerfilEditarPage() {
 
     setLoading(false);
   }
+  
+  if (!auth.token) return auth.goLogin;
   
   return (
     <Template title="Panel">

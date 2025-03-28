@@ -17,8 +17,10 @@ export interface AuthContextData {
   token: string | undefined;
   user: User | undefined;
   goLogin: React.ReactNode;
+  goAlreadyLogged: React.ReactNode;
   goNotAllowed: React.ReactNode;
   login: (correo: string, clave: string) => Promise<void>;
+  googleLogin: (code: string) => Promise<void>;
   register: (account: RegisterRequest) => Promise<void>;
   logout: () => void;
   update: (props: PerfilEdit) => Promise<void>;

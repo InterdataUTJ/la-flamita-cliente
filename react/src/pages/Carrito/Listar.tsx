@@ -71,6 +71,8 @@ export default function CarritoPage() {
       });
   }, []);
 
+  if (!auth.token) return auth.goLogin;
+
   return (
     <Template title='Carrito'>
       <h2 className="text-center font-extrabold text-3xl mb-4">Carrito</h2>

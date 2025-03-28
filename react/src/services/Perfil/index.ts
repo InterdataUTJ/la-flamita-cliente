@@ -5,6 +5,10 @@ export default class PerfilService {
   static login(correo: string, clave: string): Promise<LoginResponse> {
     return Http.post<LoginResponse>("/login", { correo, clave }) as Promise<LoginResponse>;
   }
+  
+  static googleLogin(params: string): Promise<LoginResponse> {
+    return Http.post<LoginResponse>(`/google/callback${params}`, {}) as Promise<LoginResponse>;
+  }
 
   static singup(account: RegisterRequest): Promise<LoginResponse> {
     return Http.post<LoginResponse>("/singup", account) as Promise<LoginResponse>;

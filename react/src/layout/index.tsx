@@ -20,7 +20,7 @@ export default function Template({ children, title, className, before }: Templat
     <>
       <Navbar />
       {before}
-      <main className={`grow w-11/12 max-w-screen-lg lg:max-w-screen-xl mx-auto p-5 box-border ${className}`}>
+      <main className={`grow w-full max-w-screen-lg lg:max-w-screen-xl mx-auto py-2 px-2 md:px-4 lg:px-5 box-border ${className}`}>
         {children}
       </main>
       <Footer />

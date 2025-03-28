@@ -34,6 +34,14 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
   }
 
   // Login function
+  const handleGoogleLogin = async (code: string) => {
+    const { token } = await PerfilService.googleLogin(code);
+    const user = await PerfilService.perfil(token);
+    setState(prev => storage.save({ ...prev, token, user }));
+  }
+
+
+  // Login function
   const handleLogin = async (correo: string, clave: string) => {
     const { token } = await PerfilService.login(correo, clave);
     const user = await PerfilService.perfil(token);
@@ -81,10 +89,12 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
       token: state.token,
       user: state.user,
       login: handleLogin,
+      googleLogin: handleGoogleLogin,
       register: handleRegister,
       logout: handleLogout,
       update: handleUpdate,
       goLogin: <Navigate to="/login" replace />,
+      goAlreadyLogged: <Navigate to="/" replace />,
       goNotAllowed: <Navigate to="/error/403" replace />,
     }}>
       {children}

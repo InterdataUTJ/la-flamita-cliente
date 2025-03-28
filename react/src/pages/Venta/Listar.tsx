@@ -27,6 +27,7 @@ export default function VentaListar() {
             });
     }, [auth.token]);
 
+    if (!auth.token) return auth.goLogin;
 
     return (
         <Template title="Mis pedidos">

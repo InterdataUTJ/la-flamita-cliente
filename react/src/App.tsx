@@ -6,6 +6,7 @@ import './global.css'
 // Pages
 import LandingPage from './pages/landing';
 import LoginPage from './pages/Auth/Login';
+import GoogleLoginPage from './pages/Auth/Google';
 import PerfilPage from './pages/Auth/Perfil';
 import PerfilEditarPage from './pages/Auth/Editar';
 import Error404Page from './pages/Errors/404';
@@ -29,6 +30,8 @@ export default function App() {
 
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/login/google" element={<GoogleLoginPage />} />
+
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/perfil" element={<PerfilPage />} />
             <Route path="/perfil/editar" element={<PerfilEditarPage />} />

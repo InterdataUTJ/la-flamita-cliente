@@ -43,6 +43,8 @@ export default function VentaConfirmar() {
     setLoading(false);
   };
 
+  if (!auth.token) return auth.goLogin;
+
   return (
     <Template title='Confirmar venta'>
       <h2 className="font-bold text-2xl mb-3">Confirmar venta</h2>
